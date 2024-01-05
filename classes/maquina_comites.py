@@ -58,17 +58,19 @@ class MaquinaDeComites:
             print("Nenhum modelo válido foi carregado. Não é possível criar o comitê.")
             return
 
-        modelos_para_comite = [(nome, modelo) for nome, modelo in self.modelos.items() if modelo is not None]
+        modelos_para_comite = []
+        for nome, modelo in tqdm(self.modelos.items(), desc="Preparando modelos para o comitê", unit="modelo"):
+            if modelo is not None:
+                modelos_para_comite.append((nome, modelo))
         
         if not modelos_para_comite:
             print("Nenhum modelo válido para formar o comitê.")
             return
 
         voting = VotingClassifier(estimators=modelos_para_comite, voting='hard')
-
         voting.fit(X_train, y_train)
         print("Criação do comitê de algoritmos concluída.")
-        
+
         with open(f'{constantes.algoritimos_dir}{constantes.bm}.pickle', 'wb') as file:
             pickle.dump(voting, file)
 

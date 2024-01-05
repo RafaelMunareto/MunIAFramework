@@ -47,21 +47,21 @@ class Previsor:
     def adicionarPredicoesAoDataFrame(self):
         """Adiciona colunas de predições e scores ao DataFrame fornecido."""
         predicoes = self.prever()
-        scores = self.preverProba()
         self.X[constantes.predicao] = predicoes
-        self.X[constantes.score] = scores
+        try:
+            scores = self.preverProba()
+            self.X[constantes.score] = scores
+        except:
+            print('Não tem Predict_proba')
         print(json.dumps(self.X.head().to_dict(), indent=4)) 
-        self.salvarDataFrame(self.df)
+        self.salvarDataFrame(self.X)
     
     @staticmethod
     def salvarDataFrame(df):
         nome = input('Qual o nome para o resultado? ')
-        caminho_completo = constantes.resultado_dir + nome + '.pickle' 
+        caminho_completo = constantes.resultado_dir + nome
         df2 = pd.DataFrame(df)
-        df2.to_csv(caminho_completo)
-        with open(caminho_completo, 'wb') as file:
-            pickle.dump(df, file)  
-
+        df2.to_csv(caminho_completo + '.csv' )
         print(f"DataFrame salvo com sucesso em {caminho_completo}")
         
     @staticmethod
