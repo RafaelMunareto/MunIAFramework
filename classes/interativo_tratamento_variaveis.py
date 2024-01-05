@@ -39,10 +39,11 @@ class InterativoTratamentoVariaveis:
                 if novo_nome:
                     self.df.rename(columns={coluna: novo_nome}, inplace=True)
                     coluna = novo_nome
-
-                self.tratarPrevisor(coluna)
-
+                
                 nan_count = self.df[coluna].isna().sum()
+                if nan_count > 0:
+                    self.tratarPrevisor(coluna)
+
                 print(f"Coluna {coluna} - NAN: {nan_count}")
 
     def definirAlvo(self, coluna):

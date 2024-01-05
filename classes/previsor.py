@@ -47,12 +47,9 @@ class Previsor:
     def adicionarPredicoesAoDataFrame(self):
         """Adiciona colunas de predições e scores ao DataFrame fornecido."""
         predicoes = self.prever()
+        scores = self.preverProba()
         self.X[constantes.predicao] = predicoes
-        try:
-            scores = self.preverProba()
-            self.X[constantes.score] = scores
-        except:
-            print('Não tem Predict_proba')
+        self.X[constantes.score] = scores
         print(json.dumps(self.X.head().to_dict(), indent=4)) 
         self.salvarDataFrame(self.X)
     
@@ -62,6 +59,7 @@ class Previsor:
         caminho_completo = constantes.resultado_dir + nome
         df2 = pd.DataFrame(df)
         df2.to_csv(caminho_completo + '.csv' )
+
         print(f"DataFrame salvo com sucesso em {caminho_completo}")
         
     @staticmethod

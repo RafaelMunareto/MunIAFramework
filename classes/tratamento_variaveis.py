@@ -19,7 +19,8 @@ class TratamentoVariaveis:
     def capturaDados(self): 
         #skip_func = lambda x: x > 0 and np.random.rand() > 0.03
         #skiprows=skip_func
-        self.df = pd.read_csv(constantes.variaveis_csv_file, sep=';')
+        base  = input("Qual base vc quer utilizar - digite o nome completo com a extensão? ")
+        self.df = pd.read_csv(constantes.base_dir +  base, sep=';')
         print("Dados caputurados")
         self.tratamentoVariaveis()
 
