@@ -9,13 +9,12 @@ class Previsor:
         self.X = None
         self.df = None
 
-    def retornaResultado():
-        with open(f'{constantes.algoritmos_dir}/{constantes.resultado_completo_df}', 'rb') as file:
-            resultados_formatados = pickle.load(file)
-        print(json.dumps(resultados_formatados, indent=4))
 
     def carregarModelo(self):
-        self.retornaResultado()
+        with open(f'{constantes.algoritimos_dir}/{constantes.resultado_completo_df}', 'rb') as file:
+            resultados_formatados = pickle.load(file)
+        print(json.dumps(resultados_formatados, indent=4))
+        
         print("\nEscolha uma opção:")
         print("BM - Best Model")
         print("NB - Naive Bayes")
@@ -48,11 +47,10 @@ class Previsor:
         elif modelo == 'rf':
             return constantes.rf
         elif modelo == 's':
-            self.carregarModelo(self)
+            self.carregarModelo()
         else: 
-            self.carregarModelo(self)
+            self.carregarModelo()
         self.modeloEscolhido(modelo)
-
         with open(modelo + '.pickle', 'rb') as file:
             self.modelo = pickle.load(file)
         print("Modelo Carregado")
@@ -69,7 +67,7 @@ class Previsor:
     def prever(self):
         if self.modelo is None:
             raise ValueError("Nenhum modelo foi carregado.")
-        self.preverProba(self)
+        self.preverProba()
         return self.modelo.predict(self.x)
 
     def preverProba(self):

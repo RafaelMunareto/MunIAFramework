@@ -3,6 +3,7 @@ import pandas as pd
 from sklearn.ensemble import VotingClassifier
 import constantes
 from tqdm import tqdm
+from datetime import datetime
 
 class MaquinaDeComites:
     def __init__(self):
@@ -85,5 +86,33 @@ class MaquinaDeComites:
         # Salva o modelo de comitê
         with open(f'{constantes.algoritimos_dir}/{constantes.bm}.pickle', 'wb') as file:
             pickle.dump(voting, file)
-
+        self.adicionarResultadosComite(comite_resultados=com)
         return voting
+
+    def adicionarResultadosComite(self, comite_resultados):
+        inicio_mc = datetime.now()
+
+        # Aqui você adicionaria a lógica para calcular as métricas do comitê
+        # Por exemplo, usando cross_val_score ou outra função adequada
+
+        fim_mc = datetime.now()
+
+        try:
+            # Carregar resultados existentes
+            with open(f'{constantes.algoritimos_dir}/{constantes.resultado_completo_df}', 'rb') as file:
+                resultados_existentes = pickle.load(file)
+
+            # Adicionar os resultados do comitê
+            resultados_existentes['best_model_comite'] = comite_resultados
+            resultados_existentes['inicio_mc'] = inicio_mc.strftime('%Y-%m-%d %H:%M:%S')
+            resultados_existentes['fim_mc'] = fim_mc.strftime('%Y-%m-%d %H:%M:%S')
+
+            # Salvar tudo de volta
+            with open(f'{constantes.algoritimos_dir}/{constantes.resultado_completo_df}', 'wb') as file:
+                pickle.dump(resultados_existentes, file)
+
+        except FileNotFoundError:
+            print(f"Arquivo {constantes.resultado_completo_df} não encontrado.")
+
+        except Exception as e:
+            print(f"Ocorreu um erro: {e}")
