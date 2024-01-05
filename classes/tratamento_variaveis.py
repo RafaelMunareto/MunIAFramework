@@ -8,8 +8,7 @@ import constantes
 
 
 class TratamentoVariaveis:
-    def __init__(self, file_path):
-        self.file_path = file_path
+    def __init__(self):
         self.df = None
         self.alvo = None
         self.previsores = None
@@ -20,7 +19,7 @@ class TratamentoVariaveis:
     def capturaDados(self): 
         #skip_func = lambda x: x > 0 and np.random.rand() > 0.03
         #skiprows=skip_func
-        self.df = pd.read_csv(self.file_path, sep=';')
+        self.df = pd.read_csv(constantes.variaveis_csv_file, sep=';')
         print("Dados caputurados")
         self.tratamentoVariaveis()
 
@@ -55,7 +54,7 @@ class TratamentoVariaveis:
         print(f'Variância de {variance_explained}')
 
 
-    def salvarVariaveis(self, dir_path):
+    def salvarVariaveis(self):
         pickle_files = {
             constantes.alvo: pd.DataFrame(self.alvo),
             constantes.previsores: pd.DataFrame(self.previsores),
@@ -71,6 +70,6 @@ class TratamentoVariaveis:
         print(f'isna previsores:  {totalizador_previsores.isna().sum()}')
         print(f'isna alvo {totalizador_alvo.isna().sum()}')
         for filename, data in pickle_files.items():
-            with open(f'{dir_path}/{filename}', 'wb') as file:
+            with open(f'{constantes.variaveis_dir}/{filename}', 'wb') as file:
                 pickle.dump(data, file)
         print("Variáveis salvas.")

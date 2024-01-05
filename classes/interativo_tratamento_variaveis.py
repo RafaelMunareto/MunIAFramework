@@ -48,7 +48,6 @@ class InterativoTratamentoVariaveis:
     def definirAlvo(self, coluna):
         # Preenche valores NaN com 0
         self.df[coluna].fillna(0, inplace=True)
-
         # Verifica se os valores são numéricos ou strings
         if self.df[coluna].dtype == 'object':
             # Transforma todas as strings não nulas em 1
@@ -188,7 +187,7 @@ class InterativoTratamentoVariaveis:
         else:
             self.previsores = self.df
         if self.alvo is not None:
-            print(f'alvo:\n{self.alvo}')
+            print(f'alvo:\n{pd.DataFrame(self.alvo)}')
             print(f'previsores:\n{self.previsores}')
         else:
             print("Alvo não definido")

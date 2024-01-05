@@ -9,23 +9,19 @@ from sklearn.linear_model import LogisticRegression, SGDClassifier
 from sklearn.svm import SVC
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
-# from catboost import CatBoostClassifier
 from datetime import datetime
 import constantes 
+import json
 
 class LoopingAlgoritmos:
-    def __init__(self, variaveis_dir, algoritmos_dir):
-        self.variaveis_dir = variaveis_dir
-        self.algoritmos_dir = algoritmos_dir
+    def __init__(self):
         self.alvo = None
         self.previsores = None
         self.modelos = {}
         self.resultados = {}
 
-        
-
+    
     def carregarDados(self):
-        
         escolha = input('Qual previsor deseja escolher? Previsor (P), Scanolado (S) ou PCA (PCA)? ').lower()
         if escolha == 'p':
             constantes.previsor_utilizado = constantes.previsores
@@ -33,10 +29,16 @@ class LoopingAlgoritmos:
             constantes.previsor_utilizado = constantes.previsores_scalonados
         elif escolha == 'pca':
             constantes.previsor_utilizado = constantes.previsores_pca
-        with open(f'{self.variaveis_dir}/{constantes.alvo}', 'rb') as file:
+        tamanho = int(input('Tamanho Máximo do previsor e alvo? '))
+        with open(f'{constantes.variaveis_dir}/{constantes.alvo}', 'rb') as file:
             self.alvo = pickle.load(file)
-        with open(f'{self.variaveis_dir}/{constantes.previsor_utilizado}', 'rb') as file:
+            if tamanho < len(self.alvo): 
+                self.alvo = self.alvo[:tamanho]
+        with open(f'{constantes.variaveis_dir}/{constantes.previsor_utilizado}', 'rb') as file:
             self.previsores = pickle.load(file)
+            if tamanho < len(self.previsores):  
+                self.previsores = self.previsores[:tamanho]
+            
         
     def treinarModelos(self):
         print(f'Previsor utilizado {constantes.previsor_utilizado}')
@@ -44,13 +46,15 @@ class LoopingAlgoritmos:
         X_train, X_test, y_train, y_test = train_test_split(
             self.previsores, self.alvo, test_size=0.3, random_state=42
         )
+
         y_train = y_train.values.ravel()
         print("Número de linhas em X:", X_train.shape[0])
         print("Número de linhas em y:", y_train.shape[0])
         print("Terminou a divisão treino e teste")
+        with open(f'{constantes.variaveis_dir}/X_test.pickle', 'wb') as file:
+            pickle.dump(X_test, file)
 
         algoritmos = {
-            #constantes.rf: RandomForestClassifier(),
             constantes.nb: GaussianNB(),
             constantes.et: ExtraTreesClassifier(),
             constantes.lr: LogisticRegression(max_iter=1000),
@@ -58,9 +62,8 @@ class LoopingAlgoritmos:
             constantes.sgd: SGDClassifier(),
             constantes.gb: GradientBoostingClassifier(),
             constantes.ab: AdaBoostClassifier(),
-            #constantes.dt: DecisionTreeClassifier(),
-          
-            #constantes.ct: CatBoostClassifier(verbose=0)
+            constantes.dt: DecisionTreeClassifier(),
+            constantes.rf: RandomForestClassifier(),
         }
 
         resultados = {}
@@ -80,7 +83,7 @@ class LoopingAlgoritmos:
                 "cv_std": cv_std
             }
             
-            with open(f'{self.algoritmos_dir}/{nome}_modelo.pickle', 'wb') as file:
+            with open(f'{constantes.algoritimos_dir}/{nome}_modelo.pickle', 'wb') as file:
                 pickle.dump(modelo, file)
                 
         fim_treinamento = datetime.now()
@@ -90,12 +93,12 @@ class LoopingAlgoritmos:
             "inicio": inicio_treinamento.strftime('%Y-%m-%d %H:%M:%S'),
             "fim": fim_treinamento.strftime('%Y-%m-%d %H:%M:%S')
         }
-        print(f'Algoritimos prontos: {resultados_completos}')
-        with open(f'{self.algoritmos_dir}/{constantes.resultado_completo_df}', 'wb') as file:
+        print(json.dumps(resultados_completos, indent=4))
+        with open(f'{constantes.algoritimos_dir}/{constantes.resultado_completo_df}', 'wb') as file:
             pickle.dump(resultados_completos, file)
 
         self.resultados = resultados_completos
 
-
+        
     def obterResultados(self):
         return self.resultados

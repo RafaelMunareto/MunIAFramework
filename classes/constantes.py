@@ -6,6 +6,7 @@ resultado_dir = 'resultado/'
 algoritimos_dir = 'algoritimos/'
 variaveis_dir = 'variaveis'
 variaveis_csv_file = base_dir + 'IA_TUDO_EM_DIA_CONTROLE.txt'
+max_alvo_previsor = ':'
 
 #variaveis 
 alvo = 'alvo.pickle'

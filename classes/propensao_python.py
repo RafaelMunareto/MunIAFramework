@@ -7,23 +7,22 @@ from analise import Analise
 import constantes 
 
 def processarBase():
-    data_processor = TratamentoVariaveis(constantes.variaveis_csv_file)
+    data_processor = TratamentoVariaveis()
     data_processor.capturaDados()  
-    data_processor.salvarVariaveis(constantes.variaveis_dir)
+    data_processor.salvarVariaveis()
         
 def rodarModelos():
-    loop = LoopingAlgoritmos(constantes.variaveis_dir, constantes.algoritimos_dir)
+    loop = LoopingAlgoritmos()
     loop.carregarDados()
     loop.treinarModelos()
     loop.obterResultados()
 
 def maquinaComites():
-    comites = MaquinaDeComites(constantes.algoritimos_dir)
+    comites = MaquinaDeComites()
     comites.criarComite()
 
-
 def previsao():
-    preditor = Previsor(constantes.modelo_aplicado)
+    preditor = Previsor()
     preditor.carregarModelo()
     preditor.salvarDataFrameComPrevisao(constantes.df_com_predicoes, constantes.results_df)
 
