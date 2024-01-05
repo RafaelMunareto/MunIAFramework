@@ -40,6 +40,8 @@ bm = "BestModel"
 
 #previsor_utilizado e modelo utilizado
 previsor_utilizado = previsores_scalonados
+cv = 10
+x = 'X_test.pickle'
 modelo_aplicado = algoritimos_dir + bm + ".pickle" 
 
 

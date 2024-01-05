@@ -24,7 +24,6 @@ def maquinaComites():
 def previsao():
     preditor = Previsor()
     preditor.carregarModelo()
-    preditor.salvarDataFrameComPrevisao(constantes.df_com_predicoes, constantes.results_df)
 
 def analise():     
     analise = Analise(constantes.df_com_previsao)

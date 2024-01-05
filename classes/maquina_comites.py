@@ -2,6 +2,7 @@ import pickle
 import pandas as pd
 from sklearn.ensemble import VotingClassifier
 import constantes
+from tqdm import tqdm
 
 class MaquinaDeComites:
     def __init__(self):
@@ -24,7 +25,7 @@ class MaquinaDeComites:
             print("Resultados não disponíveis ou mal formatados.")
             return
         
-        for nome in self.resultados['resultados']:
+        for nome in tqdm(self.resultados['resultados'], desc="Carregando modelos", unit="modelo"):
             try:
                 with open(f'{constantes.algoritimos_dir}/{nome}_modelo.pickle', 'rb') as file:
                     self.modelos[nome] = pickle.load(file)
@@ -62,20 +63,22 @@ class MaquinaDeComites:
 
         if isinstance(self.alvo, pd.DataFrame):
             y = self.alvo.iloc[:, 0].values.ravel()
-            print(self.alvo)
         else:
             y = self.alvo.ravel()
             print(self.alvo)
 
         # Cria a lista de modelos para o comitê
-        modelos_para_comite = [(nome, modelo) for nome, modelo in self.modelos.items() if modelo is not None]
+        modelos_para_comite = []
+        for nome, modelo in tqdm(self.modelos.items(), desc="Preparando comitê", unit="modelo"):
+            if modelo is not None:
+                modelos_para_comite.append((nome, modelo))
 
         if not modelos_para_comite:
             print("Nenhum modelo válido para formar o comitê.")
             return
 
+        print("Iniciando o treinamento do comitê de algoritmos...")
         voting = VotingClassifier(estimators=modelos_para_comite, voting='soft')
-        print(self.previsores)
         voting.fit(self.previsores, y)
         print("Criação do comitê de algoritmos concluída.")
 

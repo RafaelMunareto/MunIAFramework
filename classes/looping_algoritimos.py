@@ -11,6 +11,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.naive_bayes import GaussianNB
 from datetime import datetime
 import constantes 
+from tqdm import tqdm
 import json
 
 class LoopingAlgoritmos:
@@ -68,8 +69,8 @@ class LoopingAlgoritmos:
 
         resultados = {}
 
-        for nome, modelo in algoritmos.items():
-            cv_scores = cross_val_score(modelo, X_train, y_train, cv=10)
+        for nome, modelo in tqdm(algoritmos.items(), desc="Progresso do Treinamento", unit="modelo"):
+            cv_scores = cross_val_score(modelo, X_train, y_train, cv=constantes.cv)
             cv_accuracy = np.mean(cv_scores)
             cv_std = np.std(cv_scores)
             modelo.fit(X_train, y_train)
