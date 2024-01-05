@@ -31,11 +31,12 @@ class LoopingAlgoritmos:
         elif escolha == 'pca':
             constantes.previsor_utilizado = constantes.previsores_pca
         tamanho = int(input('Tamanho Máximo do previsor e alvo? '))
-        with open(f'{constantes.variaveis_dir}/{constantes.alvo}', 'rb') as file:
+        with open(f'{constantes.variaveis_dir}{constantes.alvo}', 'rb') as file:
             self.alvo = pickle.load(file)
             if tamanho < len(self.alvo): 
                 self.alvo = self.alvo[:tamanho]
-        with open(f'{constantes.variaveis_dir}/{constantes.previsor_utilizado}', 'rb') as file:
+                constantes.tamanho = tamanho
+        with open(f'{constantes.variaveis_dir}{constantes.previsor_utilizado}', 'rb') as file:
             self.previsores = pickle.load(file)
             if tamanho < len(self.previsores):  
                 self.previsores = self.previsores[:tamanho]
@@ -52,9 +53,15 @@ class LoopingAlgoritmos:
         print("Número de linhas em X:", X_train.shape[0])
         print("Número de linhas em y:", y_train.shape[0])
         print("Terminou a divisão treino e teste")
-        with open(f'{constantes.variaveis_dir}/X_test.pickle', 'wb') as file:
+        with open(f'{constantes.variaveis_dir}X_test.pickle', 'wb') as file:
             pickle.dump(X_test, file)
-
+        with open(f'{constantes.variaveis_dir}Y_test.pickle', 'wb') as file:
+            pickle.dump(y_test, file)
+        with open(f'{constantes.variaveis_dir}X_train.pickle', 'wb') as file:
+            pickle.dump(X_train, file)
+        with open(f'{constantes.variaveis_dir}Y_train.pickle', 'wb') as file:
+            pickle.dump(y_train, file)
+        
         algoritmos = {
             constantes.nb: GaussianNB(),
             constantes.et: ExtraTreesClassifier(),
@@ -84,7 +91,7 @@ class LoopingAlgoritmos:
                 "cv_std": cv_std
             }
             
-            with open(f'{constantes.algoritimos_dir}/{nome}_modelo.pickle', 'wb') as file:
+            with open(f'{constantes.algoritimos_dir}{nome}.pickle', 'wb') as file:
                 pickle.dump(modelo, file)
                 
         fim_treinamento = datetime.now()
@@ -95,7 +102,7 @@ class LoopingAlgoritmos:
             "fim": fim_treinamento.strftime('%Y-%m-%d %H:%M:%S')
         }
         print(json.dumps(resultados_completos, indent=4))
-        with open(f'{constantes.algoritimos_dir}/{constantes.resultado_completo_df}', 'wb') as file:
+        with open(f'{constantes.algoritimos_dir}{constantes.resultado_completo_df}', 'wb') as file:
             pickle.dump(resultados_completos, file)
 
         self.resultados = resultados_completos

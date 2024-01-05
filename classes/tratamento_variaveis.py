@@ -70,6 +70,6 @@ class TratamentoVariaveis:
         print(f'isna previsores:  {totalizador_previsores.isna().sum()}')
         print(f'isna alvo {totalizador_alvo.isna().sum()}')
         for filename, data in pickle_files.items():
-            with open(f'{constantes.variaveis_dir}/{filename}', 'wb') as file:
+            with open(f'{constantes.variaveis_dir}{filename}', 'wb') as file:
                 pickle.dump(data, file)
         print("Variáveis salvas.")

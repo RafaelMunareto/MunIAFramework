@@ -42,7 +42,7 @@ def menu_principal():
         print("T - Tudo")
         print("S - Sair")
     
-        escolha = input("Digite sua escolha (P/M/C/PR/A/T/S): ").upper()
+        escolha = input("Digite sua escolha? ").upper()
     
         if escolha == "P":
             processarBase()

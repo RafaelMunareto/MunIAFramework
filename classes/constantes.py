@@ -2,9 +2,10 @@
 
 # Diretórios de arquivos
 base_dir = 'base/'
-resultado_dir = 'resultado/'
+teste = 'teste/base_teste.csv'
+resultado_dir = 'resultados/'
 algoritimos_dir = 'algoritimos/'
-variaveis_dir = 'variaveis'
+variaveis_dir = 'variaveis/'
 variaveis_csv_file = base_dir + 'IA_TUDO_EM_DIA_CONTROLE.txt'
 max_alvo_previsor = ':'
 
@@ -30,18 +31,21 @@ rf =  "RandomForest"
 lr = "LogisticRegression"
 knn = "KNeighbors"
 nb = "GaussianNB"
+bm = "BestModel"
 sgd = "SGDClassifier"
 gb = "GradientBoosting"
-ab =  "AdaBoost"
+ab = "AdaBoost"
 dt = "DecisionTree"
 et = "ExtraTrees"
 ct = "CatBoost"
-bm = "BestModel"
 
 #previsor_utilizado e modelo utilizado
 previsor_utilizado = previsores_scalonados
 cv = 10
-x = 'X_test.pickle'
+X_test = 'X_test.pickle'
+Y_test = 'Y_test.pickle'
+X_train = 'X_train.pickle'
+Y_train = 'Y_train.pickle'
 modelo_aplicado = algoritimos_dir + bm + ".pickle" 
 
 
