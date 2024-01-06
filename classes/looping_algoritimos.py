@@ -51,7 +51,7 @@ class LoopingAlgoritmos:
         y_train = y_train.values.ravel()
         print("Número de linhas em X:", X_train.shape[0])
         print("Número de linhas em y:", y_train.shape[0])
-        print("Terminou a divisão treino e teste")
+        print("\n Terminou a divisão treino e teste \n")
         with open(f'{constantes.variaveis_dir}X_test.pickle', 'wb') as file:
             pickle.dump(X_test, file)
         with open(f'{constantes.variaveis_dir}Y_test.pickle', 'wb') as file:
@@ -80,6 +80,7 @@ class LoopingAlgoritmos:
             modelo.fit(X_train, y_train)
             y_pred = modelo.predict(X_test)
             acc = accuracy_score(y_test, y_pred)
+            print('\n')
             print(f'Fazendo o algoritimo {nome}...')
             self.modelos[nome] = modelo
             resultados[nome] = {

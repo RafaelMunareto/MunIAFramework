@@ -33,7 +33,7 @@ def previsao():
 
 def score():     
     analise = ScoreBestModel()
-    analise.juntarComBesModel()
+    analise.juntarComBestModel()
 
 def menu_principal():
     while True:

@@ -14,7 +14,6 @@ class TratamentoVariaveisBaseUtilizacao:
         self.pca_model = None
         self.variance_explained = None
 
-    
     def capturaDadosUtilizacao(self): 
         nome  = input("Qual base vc quer utilizar - digite o nome completo com a extensão? ")
         separado = input('É separado por , ou ; o arquivo ? ')
