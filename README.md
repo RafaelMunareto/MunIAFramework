@@ -5,7 +5,7 @@ Este projeto é uma aplicação  para processamento e análise de dados para uti
 ## Estrutura do Projeto
 
 A aplicação está estruturada da seguinte forma:
-propensao/
+MUNIAFRAMEWORK/
 ├── pycache/
 ├── config/
 │ ├── init.py
@@ -24,6 +24,7 @@ propensao/
 ├── model/
 ├── start.sh
 └── view/
+
 
 ### Descrição dos Diretórios
 
