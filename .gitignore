@@ -1,0 +1,6 @@
+model/base/*
+model/resultados/*
+model/variaveis/*
+model/algoritimos/*
+model/teste/*
+env
