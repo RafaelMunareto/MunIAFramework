@@ -2,12 +2,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Python: Propensao",
+            "name": "Python: Run start.sh",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/start.sh",
+            "program": "${workspaceFolder}/controller/app.py",
             "console": "integratedTerminal",
-            "python": "./env/bin/activate" 
+            "preLaunchTask": "run start",
+            "python": "${workspaceFolder}/env/bin/python",
+            "cwd": "${workspaceFolder}"
         }
+        
     ]
 }

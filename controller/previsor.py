@@ -71,7 +71,7 @@ class Previsor:
 
         # Iterando sobre cada modelo e suas métricas
         for modelo, metricas in RESULTADOS['resultados'].items():
-            df = pd.read_csv(f'resultados/{modelo}.csv', sep=',')
+            df = pd.read_csv(f'{environment.resultado_dir}{modelo}.csv', sep=',')
             df.drop('Unnamed: 0', axis=1, inplace=True)
             # Obtendo as primeiras previsões e as previsões com score maior que 0.3
             primeiras_previsoes = df.head(3)

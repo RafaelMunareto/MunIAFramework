@@ -1,0 +1,10 @@
+{
+    "label": "run start",
+    "type": "shell",
+    "command": "../start.sh",
+    "problemMatcher": [],
+    "group": {
+        "kind": "build",
+        "isDefault": true
+    }
+}
