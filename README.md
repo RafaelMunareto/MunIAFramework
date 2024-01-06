@@ -66,9 +66,7 @@ Passo a passo para instalar e configurar o projeto.
     git clone https://github.com/RafaelMunareto/propens-o_ia_adimp.git
 
 2.  Instale as dependências:
-    basta executar o arquivo install.sh - no terminal com ./install.sh
+    Basta executar o script install.sh - no terminal com ./install.sh
 
-3. Crie uma .env com o comando
-    pip venv 
-
-3. execute o arquivo start.sh - no terminal com ./start.sh
+3. execute o arquivo
+    Basta executar o script start.sh - no terminal com ./start.sh
