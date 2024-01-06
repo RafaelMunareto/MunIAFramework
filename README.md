@@ -7,8 +7,7 @@ Este projeto é uma aplicação  para processamento e análise de dados para uti
 A aplicação está estruturada da seguinte forma:
 
 
-```
-MUNIAFRAMEWORK/
+```MUNIAFRAMEWORK/
 ├── pycache/
 ├── config/
 │ ├── init.py
@@ -26,9 +25,7 @@ MUNIAFRAMEWORK/
 ├── env/
 ├── model/
 ├── start.sh
-└── view/
-
-```
+└── view/```
 
 ### Descrição dos Diretórios
 
