@@ -27,6 +27,7 @@ MUNIAFRAMEWORK/
 ├── model/
 ├── start.sh
 └── view/
+  ├── index.html
 ```
 
 ### Descrição dos Diretórios
