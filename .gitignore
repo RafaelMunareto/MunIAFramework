@@ -1,6 +1,16 @@
 model/base/*
+!model/base/.gitkeep
+
 model/resultados/*
+!model/resultados/.gitkeep
+
 model/variaveis/*
+!model/variaveis/.gitkeep
+
 model/algoritimos/*
-model/teste//*
+!model/algoritimos/.gitkeep
+
+model/teste/*
+!model/teste/.gitkeep
+
 env
