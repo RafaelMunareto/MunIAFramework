@@ -57,9 +57,10 @@ class ScoreBestModel:
         # Selecionar todas as colunas do DataFrame 'results' e adicionar o score ajustado
         self.df = self.results.copy()
         self.df['score_ajustado'] = combined_df['score_results'].apply(lambda x: min(100, x * 100))
-        self.df.drop(columns='Unnamed: 0', inplace=True)
+        self.df.drop(columns=["Unnamed: 0", "score_results"], inplace=True)
+        self.df.rename(columns={'score_ajustado': 'score', 'predicao_results': 'predicao'}, inplace=True)
         print(self.df.head())
-        print(f'10 Score > 70 \n {self.df.query('score_ajustado > 70').sort_values('score_ajustado', ascending=True)}')
+        print(f'10 Score > 70 \n {self.df.query('score > 70').sort_values('score', ascending=True)}')
         self.salvarBestModel()
 
     def salvarBestModel(self):
