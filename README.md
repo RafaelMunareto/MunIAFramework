@@ -5,6 +5,8 @@ Este projeto é uma aplicação  para processamento e análise de dados para uti
 ## Estrutura do Projeto
 
 A aplicação está estruturada da seguinte forma:
+
+
 MUNIAFRAMEWORK/
 ├── pycache/
 ├── config/
