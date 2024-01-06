@@ -1,5 +1,3 @@
-import sys
-sys.path.append('/Users/c105522/Documents/codes/propensao')
 
 from tratamento_base_utilizacao import TratamentoVariaveisBaseUtilizacao
 from tratamento_variaveis import TratamentoVariaveis
