@@ -1,0 +1,14 @@
+{% load static %}
+
+<div class='d-flex justify-content-start'>
+    <select id="e1" style='max-width:30rem' onchange="window.location='/equipes/' + this.value" >
+        <option value="0"  selected>TODOS</option>
+        {% for linha in dados %}
+            {% if linha.nu_unidade == cgc %}
+                <option value="{{ linha.nu_unidade }}"  selected >{{ linha.nu_unidade }} - {{ linha.nome_unidade }}</option>
+            {% else %}
+                <option value="{{ linha.nu_unidade }}">{{ linha.nu_unidade }} - {{ linha.nome_unidade }}</option>
+            {% endif %}
+        {% endfor %}
+    </select>
+</div>

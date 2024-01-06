@@ -1,0 +1,15 @@
+{% load static %}
+
+{% for message in messages %}
+
+   {% if message.tags == 'error' %}
+        <h4 id='message' class='white-text gradiente-red opacity-05 white-text center padding-05 mb-0 animated flipInX'>
+            <i class='fas  fa-exclamation-triangle'></i><span class='vertical-align--text-top'> {{ message }}</span></h4>
+    {% endif %}
+
+    {% if message.tags == 'success' %}
+        <h4 id='message' class='white-text gradiente-marinho opacity-05 white-text center padding-05 mb-0 animated flipInX'>
+            <i class='fas fa-check-circle'></i><span class='vertical-align--text-top'> {{ message }}</span></h4>
+    {% endif %}
+
+{% endfor %}

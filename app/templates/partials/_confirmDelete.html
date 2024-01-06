@@ -1,0 +1,12 @@
+{% load static %}
+
+ <div id="modal1" class="modal" style='max-width: 30rem;'>
+   <div class="modal-content">
+     <h5 class="white-text {{ cor }} bold border-radius-10 padding-05" style='padding-left: 1rem'>Tem certeza que deseja excluir?</h5>
+     <div class='d-flex justify-center mt-2'><i class='fas fa-exclamation-triangle fa-4x orange-text'></i></div>
+   </div>
+   <div class="modal-footer">
+     <a href="{{ url }}" class="modal-close waves-effect waves-green btn-flat modal-ok">OK</a>
+     <a href="#!" class="modal-close waves-effect waves-red btn-flat">CANCELAR</a>
+   </div>
+ </div>

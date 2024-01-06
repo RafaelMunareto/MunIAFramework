@@ -1,0 +1,18 @@
+{% load static %}
+{% load formata %}
+
+<div class=''>
+    <div class='card-panel gradiente-dourado darken-2 left' id='card-top'>
+        {{  gestor.mat | img_mat }}
+        <br>
+        <div class='text-right'>
+            <span class='white-text bold'>TOP 1 {{ gestor.tipo }}</span>
+            <br>
+            <span class='white-text bold size80'>{{ gestor.nome }}</span>
+            <br>
+            <span class='white-text bold size75'>{{ gestor.nu_unidade }} -  {{ gestor.nome_unidade }} </span>
+            <br>
+            <span class='white-text bold'>{{ gestor.nota_final }}</span>
+        </div>
+    </div>
+</div>

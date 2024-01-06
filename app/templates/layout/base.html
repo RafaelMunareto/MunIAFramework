@@ -1,0 +1,22 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+
+    {% include 'layout/cabecalho.html' %}
+    {% include 'layout/header.html' %}
+    {% include 'layout/menu.html' %}
+
+    <body class='animated fadeIn'>
+        <div class='container-fluid margin-3 mb-4 mt-1' style='min-height: 33rem'>
+            {% block content %}{% endblock %}
+        </div>
+    </body>
+    
+{% include 'layout/footer.html' %}
+   
+</html>
+
+{% include 'layout/rodape.html' %}
+
+{% block scripts %}{% endblock %}

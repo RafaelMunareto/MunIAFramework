@@ -1,0 +1,42 @@
+{% extends 'layout/principal.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-2">
+    <div class="row">
+        <div class="col-md-6 offset-md-2">
+            <form method="post" enctype="multipart/form-data" class="form-group">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Base para treinamento</button>
+            </form>
+        </div>
+        {% if processado == True %} 
+            <button class="btn btn-success mt-2" onclick="location.href='{% url 'processar_base' %}'">Process Base</button>
+        {% endif %}
+    </div>
+</div>
+
+<h1>Data Table</h1>
+<table>
+    <thead>
+        <tr>
+            <!-- Generate table headers dynamically based on column names -->
+            {% for column in data_list.0.keys %}
+            <th>{{ column }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        <!-- Loop through the data to generate rows -->
+        {% for data in data_list %}
+        <tr>
+            <!-- Generate table cells dynamically based on data values -->
+            {% for value in data.values %}
+            <td>{{ value }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
