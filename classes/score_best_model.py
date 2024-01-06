@@ -16,7 +16,7 @@ class ScoreBestModel:
         with open(f'{constantes.algoritimos_dir}/{constantes.resultado_completo_df}', 'rb') as file:
             resultados_formatados = pickle.load(file)
         print(json.dumps(resultados_formatados, indent=4))
-        self.pergunta()
+        self.modelo = self.pergunta()
         try:
             self.results = pd.read_csv(constantes.resultado_dir + self.modelo + '.csv', sep=';')
         except:
@@ -63,13 +63,11 @@ class ScoreBestModel:
             print("ET - ExtraTrees")
             print("LR - Logistic Regression")
             print("KNN - KNeighbors")
-            print("SGD - SGDClassifier")
             print("GD - GradientBoosting")
             print("AB - AdaBoost")
-            print("DT - DecisionTree")
             print("RF - RandomForest")
             print("S - Sair")
-            modelo = input('Qual o modelo a ser usado ? ' ).lower()
+            modelo = input('Qual o modelo a ser usado para juntar com o BestModel? ' ).lower()
             if modelo == 'nb':
                 return constantes.nb
             elif modelo == 'et':
@@ -78,14 +76,10 @@ class ScoreBestModel:
                 return constantes.lr
             elif modelo == 'knn':
                 return constantes.knn
-            elif modelo == 'sgd':
-                return constantes.sgd
             elif modelo == 'gb':
                 return constantes.gb
             elif modelo == 'ab':
                 return constantes.ab
-            elif modelo == 'dt':
-                return constantes.dt
             elif modelo == 'rf':
                 return constantes.rf
             elif modelo == 'bm':

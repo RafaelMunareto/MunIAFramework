@@ -42,7 +42,7 @@ def menu_principal():
         print("M - Rodar modelos")
         print("C - Máquina de comitês")
         print("PR - Propensão")
-        print("A - Análise")
+        print("A - Score")
         print("T - Tudo")
         print("E - Preparar Base para utilização")
         print("S - Sair")
