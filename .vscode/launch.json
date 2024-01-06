@@ -7,7 +7,7 @@
             "request": "launch",
             "program": "${workspaceFolder}/start.sh",
             "console": "integratedTerminal",
-            "pythonPath": "./env/bin/activate" 
+            "python": "./env/bin/activate" 
         }
     ]
 }

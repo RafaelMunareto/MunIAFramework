@@ -1,8 +1,9 @@
+from tratamento_base_utilizacao import TratamentoVariaveisBaseUtilizacao
 from tratamento_variaveis import TratamentoVariaveis
 from looping_algoritimos import LoopingAlgoritmos
 from maquina_comites import MaquinaDeComites
 from previsor import Previsor
-from analise import Analise
+from score_best_model import ScoreBestModel
 
 import constantes 
 
@@ -10,6 +11,11 @@ def processarBase():
     data_processor = TratamentoVariaveis()
     data_processor.capturaDados()  
     data_processor.salvarVariaveis()
+        
+def processarBaseUtilizacao():
+    data_utilizacao = TratamentoVariaveisBaseUtilizacao()
+    data_utilizacao.capturaDadosUtilizacao()  
+    data_utilizacao.salvarVariaveisBaseUtilizacao()
         
 def rodarModelos():
     loop = LoopingAlgoritmos()
@@ -25,11 +31,9 @@ def previsao():
     preditor = Previsor()
     preditor.carregarModelo()
 
-def analise():     
-    analise = Analise(constantes.df_com_previsao)
-    analise.carregarDados()
-    analise.compararAcertos()
-    analise.analisarFaixasDeScore()
+def score():     
+    analise = ScoreBestModel()
+    analise.juntarComBesModel()
 
 def menu_principal():
     while True:
@@ -40,33 +44,36 @@ def menu_principal():
         print("PR - Propensão")
         print("A - Análise")
         print("T - Tudo")
+        print("E - Preparar Base para utilização")
         print("S - Sair")
     
-        escolha = input("Digite sua escolha? ").upper()
+        escolha = input("Digite sua escolha? ").lower()
     
-        if escolha == "P":
+        if escolha == "p":
             processarBase()
             pass
-        elif escolha == "M":
+        elif escolha == "m":
             rodarModelos()
             pass
-        elif escolha == "C":
+        elif escolha == "c":
             maquinaComites()
             pass
-        elif escolha == "PR":
+        elif escolha == "pr":
             previsao()
             pass
-        elif escolha == "A":
-            analise()
+        elif escolha == "a":
+            score()
             pass
-        elif escolha == "T":
+        elif escolha == "t":
             processarBase()
             rodarModelos()
             maquinaComites()
             previsao()
-            analise()
+            score()
             pass
-        elif escolha == "S":
+        elif escolha == "e":
+            processarBaseUtilizacao()
+        elif escolha == "s":
             print("Saindo do programa.")
             break
         else:

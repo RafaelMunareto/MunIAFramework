@@ -2,7 +2,7 @@
 
 # Diretórios de arquivos
 base_dir = 'base/'
-teste = 'teste/base_teste.csv'
+teste_dir = 'teste/'
 resultado_dir = 'resultados/'
 algoritimos_dir = 'algoritimos/'
 variaveis_dir = 'variaveis/'

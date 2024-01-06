@@ -5,7 +5,7 @@ from datetime import datetime
 import constantes
 from sklearn.preprocessing import LabelEncoder
 
-class InterativoTratamentoVariaveis:
+class InterativoBaseUtilizacao:
     def __init__(self, df):
         self.df = df
         self.alvo = None
@@ -26,8 +26,8 @@ class InterativoTratamentoVariaveis:
 
             # Solicitando a entrada e convertendo para minúscula para padronização
             resposta = self.solicitarEntradaValida(
-                f"Essa coluna '{coluna}' é alvo, previsor ou descartar? (A/P/D): ",
-                lambda x: x.lower() in ['a', 'p', 'd']
+                f"Essa coluna '{coluna}' é previsor ou descartar? (P/D): ",
+                lambda x: x.lower() in ['p', 'd']
             ).lower()
 
             if resposta == 'd':
@@ -45,24 +45,6 @@ class InterativoTratamentoVariaveis:
                     self.tratarPrevisor(coluna)
 
                 print(f"Coluna {coluna} - NAN: {nan_count}")
-
-    def definirAlvo(self, coluna):
-        # Preenche valores NaN com 0
-        self.df[coluna].fillna(0, inplace=True)
-        # Verifica se os valores são numéricos ou strings
-        if self.df[coluna].dtype == 'object':
-            # Transforma todas as strings não nulas em 1
-            self.alvo = self.df[coluna].apply(lambda x: 0 if x == 0 else 1)
-        else:
-            # Para valores numéricos, transforma todos os não zeros em 1
-            self.alvo = self.df[coluna].apply(lambda x: 1 if x != 0 else 0)
-
-        # Adiciona a coluna 'alvo' transformada ao DataFrame e remove a coluna original
-        self.df['alvo'] = self.alvo
-        self.df.drop(columns=coluna, inplace=True)
-
-        # Armazena informações da coluna original
-        self.respostas['alvo'] = {'coluna_original': coluna}
         
     def tratarQuantitativo(self, coluna):
         if self.df[coluna].isna().sum() == 0:
@@ -189,13 +171,6 @@ class InterativoTratamentoVariaveis:
 
     def processar(self):
         self.processarColunas()
-        if self.alvo is not None:
-            self.previsores = self.df.drop(columns=['alvo'])
-        else:
-            self.previsores = self.df
-        if self.alvo is not None:
-            print(f'alvo:\n{pd.DataFrame(self.alvo)}')
-            print(f'previsores:\n{self.previsores}')
-        else:
-            print("Alvo não definido")
-        return pd.DataFrame(self.previsores), pd.DataFrame(self.alvo)
+        self.previsores = self.df
+        print(f'previsores:\n{self.previsores}')
+        return pd.DataFrame(self.previsores)

@@ -1,37 +1,40 @@
 import numpy as np
 import pandas as pd
-from interativo_tratamento_variaveis import InterativoTratamentoVariaveis
+from interativo_base_utilizacao import InterativoBaseUtilizacao
 from sklearn.preprocessing import StandardScaler
 from sklearn.decomposition import IncrementalPCA
 import pickle
 import constantes
 
 
-class TratamentoVariaveis:
+class TratamentoVariaveisBaseUtilizacao:
     def __init__(self):
-        self.df = None
-        self.alvo = None
         self.previsores = None
         self.previsores_scalonados = None
         self.pca_model = None
         self.variance_explained = None
 
-    def capturaDados(self): 
-        base  = input("Qual base vc quer utilizar - digite o nome completo com a extensão? ")
+    
+    def capturaDadosUtilizacao(self): 
+        nome  = input("Qual base vc quer utilizar - digite o nome completo com a extensão? ")
         separado = input('É separado por , ou ; o arquivo ? ')
         try:
-            self.df = pd.read_csv(constantes.base_dir +  base, sep=separado)
+            self.df = pd.read_csv(constantes.teste_dir + nome, sep=separado)
+            print("Base carregada")
         except:
             print('Base não encontrada ou diretório inexistente')
-        print("Dados caputurados")
+       
+        with open(f'{constantes.variaveis_dir}{constantes.previsores}', 'rb') as file:
+            previsores = pickle.load(file)
+        print('Deve ter essas colunas e não pode conter NAN ou NULL')
+        print(f'{previsores.columns}')
         self.tratamentoVariaveis()
-    
+        
 
     def tratamentoVariaveis(self): 
-        tratamento = InterativoTratamentoVariaveis(self.df)
-        self.previsores, self.alvo = tratamento.processar()
+        tratamento = InterativoBaseUtilizacao(self.df)
+        self.previsores = tratamento.processar()
         print(f' previsores retornados \n {self.previsores}')
-
         self.pca()
         self.escalonarPrevisores()
 
@@ -59,37 +62,31 @@ class TratamentoVariaveis:
         print(f'Variância de {variance_explained}')
 
 
-    def salvarVariaveis(self):
-        pickle_files = {
-            constantes.alvo: pd.DataFrame(self.alvo),
-            constantes.previsores: pd.DataFrame(self.previsores),
-            constantes.previsores_scalonados: pd.DataFrame(self.previsores_scalonados),
-            constantes.previsores_pca: self.pca_model,
-            constantes.df: self.df
-        }
-       
-        print(f'Previsores \n {self.previsores}')
-        print(f'alvo scalonados \n {self.alvo}')
-        totalizador_alvo = pd.DataFrame(self.alvo)
-        totalizador_previsores= pd.DataFrame(self.previsores)
-        print(f'isna previsores:  {totalizador_previsores.isna().sum()}')
-        print(f'isna alvo {totalizador_alvo.isna().sum()}')
-        for filename, data in pickle_files.items():
-            with open(f'{constantes.variaveis_dir}{filename}', 'wb') as file:
-                pickle.dump(data, file)
-        print("Variáveis salvas.")
-
     def salvarVariaveisBaseUtilizacao(self):
         pickle_files = {
             constantes.previsores: pd.DataFrame(self.previsores),
             constantes.previsores_scalonados: pd.DataFrame(self.previsores_scalonados),
             constantes.previsores_pca: self.pca_model,
-        }
-       
-        print(f'Previsores \n {self.previsores}')
-        totalizador_previsores= pd.DataFrame(self.previsores)
-        print(f'isna previsores:  {totalizador_previsores.isna().sum()}')
+        }        
+        self.verificacao()
         for filename, data in pickle_files.items():
-            with open(f'{constantes.teste}{filename}', 'wb') as file:
+            with open(f'{constantes.teste_dir}{filename}', 'wb') as file:
                 pickle.dump(data, file)
         print("Variáveis salvas.")
+
+    def verificacao(self):
+        with open(f'{constantes.variaveis_dir}{constantes.previsores}', 'rb') as file:
+            previsores_bench = pickle.load(file)
+
+        print('Verificação: \n')
+        print('Previsores originais: \n')
+        print(f'{previsores_bench.head(5)} \n')
+        print(f'{previsores_bench.isna().sum()} \n')
+        print('Previsores processados agora: \n')
+        print(f'{pd.DataFrame(self.previsores).head(5)} \n')
+        print(f'{pd.DataFrame(self.previsores).isna().sum()} \n')
+        print('Lembrando que devem estar iguais, mesmas quantidade e colunas iguais, sem NAN ou NULL')
+        correto = input('Está correto ? (S) (N)').strip().lower()
+        if(correto == 'n'):
+            retorna = TratamentoVariaveisBaseUtilizacao()
+            retorna.capturaDadosUtilizacao()
