@@ -1,6 +1,6 @@
-base/
-resultados/
-variaveis/
-algoritimos/
-env/
-teste/
+model/base/*
+model/resultados/*
+model/variaveis/*
+model/algoritimos/*
+model/env/*
+model/teste/*
