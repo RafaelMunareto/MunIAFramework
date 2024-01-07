@@ -10,33 +10,47 @@ from django.shortcuts import render
 def index(request):
     return render(request, 'apps/index.html')
 
-def processarBase():
-    data_processor = TratamentoVariaveis()
-    data_processor.capturaDados()  
-    data_processor.salvarVariaveis()
+def processarBase(request):
+    # data_processor = TratamentoVariaveis()
+    # data_processor.capturaDados()  
+    # data_processor.salvarVariaveis()
+    return render(request, 'apps/processar-base.html')
         
-def processarBaseUtilizacao():
-    data_utilizacao = TratamentoVariaveisBaseUtilizacao()
-    data_utilizacao.capturaDadosUtilizacao()  
-    data_utilizacao.salvarVariaveisBaseUtilizacao()
-        
-def rodarModelos():
-    loop = LoopingAlgoritmos()
-    loop.carregarDados()
-    loop.treinarModelos()
-    loop.obterResultados()
+def processarBaseUtilizacao(request):
+    # data_utilizacao = TratamentoVariaveisBaseUtilizacao()
+    # data_utilizacao.capturaDadosUtilizacao()  
+    # data_utilizacao.salvarVariaveisBaseUtilizacao()
+    return render(request, 'apps/base-utilizacao.html')
 
-def maquinaComites():
-    comites = MaquinaDeComites()
-    comites.criarComite()
+def rodarModelos(request):
+    # loop = LoopingAlgoritmos()
+    # loop.carregarDados()
+    # loop.treinarModelos()
+    # loop.obterResultados()
+    return render(request, 'apps/rodar-modelos.html')
 
-def previsao():
-    preditor = Previsor()
-    preditor.carregarModelo()
+def maquinaComites(request):
+    # comites = MaquinaDeComites()
+    # comites.criarComite()
+    return render(request, 'apps/maquina-comites.html')
 
-def score():     
-    analise = ScoreBestModel()
-    analise.juntarComBestModel()
+def previsao(request):
+    # preditor = Previsor()
+    # preditor.carregarModelo()
+    return render(request, 'apps/previsao.html')
+
+def score(request):     
+    # analise = ScoreBestModel()
+    # analise.juntarComBestModel()
+    return render(request, 'apps/score.html')
+
+def rodarTudo(request):
+    # processarBase()
+    # rodarModelos()
+    # maquinaComites()
+    # previsao()
+    # score()
+    return render(request, 'apps/rodar-tudo.html')
 
 def menu_principal():
     while True:
@@ -68,11 +82,7 @@ def menu_principal():
             score()
             pass
         elif escolha == "t":
-            processarBase()
-            rodarModelos()
-            maquinaComites()
-            previsao()
-            score()
+            rodarTudo()
             pass
         elif escolha == "e":
             processarBaseUtilizacao()
