@@ -1,0 +1,36 @@
+<!-- Botão para abrir o modal de renomeação -->
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#renameModal{{ forloop.counter }}">Renomear</button>
+
+<!-- Modal de renomeação -->
+<div class="modal fade" id="renameModal{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="renameModalLabel{{ forloop.counter }}" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="renameModalLabel{{ forloop.counter }}">Renomear Arquivo</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form method="post" action="{% url 'rename_file' file_name=file_name %}">
+        {% csrf_token %}
+        <div class="modal-body">
+          <div class="form-group">
+            <label for="newFileName">Novo Nome</label>
+            <input type="text" class="form-control" id="newFileName" name="new_file_name" placeholder="Novo Nome" required>
+          </div>
+          <div class="form-group">
+            <label for="fileExtension">Extensão</label>
+            <select class="form-control" id="fileExtension" name="file_extension">
+              <option value="csv">CSV</option>
+              <option value="txt">TXT</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+          <button type="submit" class="btn btn-primary">Renomear</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

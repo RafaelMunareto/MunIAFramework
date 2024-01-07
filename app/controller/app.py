@@ -1,14 +1,88 @@
 
+from django.shortcuts import render, redirect
+from django.http import JsonResponse
+
+from app.forms import UploadFileForm
+
 from .tratamento_base_utilizacao import TratamentoVariaveisBaseUtilizacao
 from .tratamento_variaveis import TratamentoVariaveis
 from .looping_algoritimos import LoopingAlgoritmos
 from .maquina_comites import MaquinaDeComites
 from .previsor import Previsor
 from .score_best_model import ScoreBestModel
-from django.shortcuts import render
+from django.contrib import messages
+import os
 
 def index(request):
-    return render(request, 'apps/index.html')
+    base_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'model', 'base')
+    files_in_base = os.listdir(base_folder)
+    allowed_extensions = ['.pickle', '.txt', '.csv', '.xls']
+    filtered_files = [file for file in files_in_base if os.path.splitext(file)[1] in allowed_extensions]
+    
+    return render(request, 'apps/home/index.html', {'filtered_files': filtered_files})
+
+
+def rename_file(request, file_name):
+    if request.method == 'POST':
+        new_file_name = request.POST.get('new_file_name')
+        file_extension = request.POST.get('file_extension')
+        base_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'model', 'base')
+        file_path = os.path.join(base_folder, file_name)
+        new_file_path = os.path.join(base_folder, f"{new_file_name}.{file_extension}")
+
+        try:
+            os.rename(file_path, new_file_path)
+            messages.success(request, 'Arquivo renomeado com sucesso.')
+        except Exception as e:
+            messages.error(request, f'Erro ao renomear arquivo: {str(e)}')
+
+    return redirect('index')  
+
+def excluir_arquivo(request, file_name):
+    base_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'model', 'base')
+    file_path = os.path.join(base_folder, file_name)
+
+    try:
+        if os.path.exists(file_path):
+            os.remove(file_path)
+            messages.success(request,  'Arquivo excluído com sucesso.')
+        else:
+            messages.error(request, f'Erro ao renomear arquivo: {str(e)}')
+            
+    except Exception as e:
+        messages.error(request, f'Erro ao renomear arquivo: {str(e)}')
+    
+    return redirect('index')  
+
+def upload_file(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            uploaded_file = request.FILES['file']
+            
+            # Obtém a extensão do arquivo original
+            file_extension = os.path.splitext(uploaded_file.name)[1]
+            
+            # Gere um nome único para o arquivo, por exemplo, usando um timestamp
+            import time
+            timestamp = str(int(time.time()))
+            
+            # Crie um novo nome de arquivo com a extensão
+            new_file_name = f"uploaded_file_{timestamp}{file_extension}"
+            
+            # Salve o arquivo no servidor com o novo nome
+            base_folder = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..', 'model', 'base')
+            with open(os.path.join(base_folder, new_file_name), 'wb') as destination:
+                for chunk in uploaded_file.chunks():
+                    destination.write(chunk)
+
+            messages.success(request, 'Arquivo enviado com sucesso.')
+            return redirect('index')
+        else:
+            messages.error(request, 'Erro ao enviar o arquivo.')
+    else:
+        form = UploadFileForm()
+    return render(request, 'apps/home/upload.html', {'form': form})
 
 def processarBase(request):
     # data_processor = TratamentoVariaveis()

@@ -1,15 +1,24 @@
+
 {% load static %}
 
-{% for message in messages %}
-
-   {% if message.tags == 'error' %}
-        <h4 id='message' class='white-text gradiente-red opacity-05 white-text center padding-05 mb-0 animated flipInX'>
-            <i class='fas  fa-exclamation-triangle'></i><span class='vertical-align--text-top'> {{ message }}</span></h4>
-    {% endif %}
-
-    {% if message.tags == 'success' %}
-        <h4 id='message' class='white-text gradiente-marinho opacity-05 white-text center padding-05 mb-0 animated flipInX'>
-            <i class='fas fa-check-circle'></i><span class='vertical-align--text-top'> {{ message }}</span></h4>
-    {% endif %}
-
-{% endfor %}
+<div class="fixed-top">
+  <div class="row animated flipInX">
+    <div class="col-md-6 offset-md-3">
+        {% for message in messages %}
+          <div class="alert alert-{{ message.tags }} alert-dismissible fade show mt-2" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+            <strong>{% if message.tags == 'error' %}Erro{% elif message.tags == 'success' %}Sucesso{% endif %}</strong>
+            {{ message }}
+          </div>
+        {% endfor %}
+      </div>
+  </div>
+</div>
+<script>
+  $('.alert').toast({
+    delay: 4000 
+  });
+  $('.alert').toast('show');
+</script>

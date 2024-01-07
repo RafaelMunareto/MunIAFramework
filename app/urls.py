@@ -10,4 +10,8 @@ urlpatterns = [
     path('score/', app.score, name='score'),
     path('base-utilizacao/', app.processarBaseUtilizacao, name='base-utilizacao'),
     path('rodar-tudo/', app.rodarTudo, name='rodar-tudo'),
+    path('upload/', app.upload_file, name='upload'),
+    path('rename_file/<str:file_name>/', app.rename_file, name='rename_file'),
+    path('delete_file/<str:file_name>/', app.excluir_arquivo, name='delete_file'),
+
 ]

@@ -1,8 +1,27 @@
-
 {% load static %}
 
 <header>
-    <nav>
-        
-    </nav>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a href="{% url 'index' %}">Home</a></li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'rodar-modelos' %}">Rodar Modelos</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'maquina-comites' %}">Máquina de Comitês</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'rodar-modelos' %}">Previsão</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'score' %}">Gerar Score</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'base-utilizacao' %}">Base Utilização</a>
+      </li>
+      <li class="breadcrumb-item">
+        <a href="{% url 'rodar-tudo' %}">Rodar tudo</a>
+      </li>
+    </ol>
+  </nav>
 </header>
