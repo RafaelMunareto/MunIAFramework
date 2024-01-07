@@ -1,0 +1,26 @@
+<div class="card mt-3 ml-3">
+    <div class="card-header">
+        <h5 class="card-title center">Projetos Iniciados</h5>
+    </div>
+    <ul class="list-group list-group-flush">
+        {% for file_name in filtered_files %}
+        <li class="list-group-item">
+        <div class="d-flex justify-content-between align-items-center flex-column">
+            <strong class="text-truncate" style="max-width: 80%;">{{ file_name }}</strong>
+            <div class="btn-group mt-2">
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal{{ forloop.counter }}" data-file="{{ file_name }}">Excluir</button>
+            {% include 'apps/home/button_renomear.html' %}
+            <button type="button" class="btn btn-warning">Iniciar Projeto</button>
+            </div>
+        </div>
+        </li>
+        <!-- Modal para confirmar a exclusão -->
+        {% include 'apps/home/modal_excluir.html' %}
+        {% endfor %}
+    </ul>
+    <div class="card-footer d-flex justify-content-center">
+        
+        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#novoProjeto">Novo Projeto</button>
+
+    </div>
+</div>

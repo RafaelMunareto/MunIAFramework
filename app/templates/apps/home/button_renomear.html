@@ -1,5 +1,8 @@
-<!-- Botão para abrir o modal de renomeação -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#renameModal{{ forloop.counter }}">Renomear</button>
+<!-- Botão com ícone de renomear (branco e alinhado à direita) -->
+<button type="button" class="btn btn-warning d-flex justify-content-end align-items-center" data-toggle="modal" data-target="#renameModal{{ forloop.counter }}">
+    <i class="fa fa-edit text-white" aria-hidden="true"></i>
+</button>
+
 
 <!-- Modal de renomeação -->
 <div class="modal fade" id="renameModal{{ forloop.counter }}" tabindex="-1" role="dialog" aria-labelledby="renameModalLabel{{ forloop.counter }}" aria-hidden="true">

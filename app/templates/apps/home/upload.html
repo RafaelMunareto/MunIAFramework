@@ -9,16 +9,19 @@
         </button>
       </div>
 
-       <div class="modal-body">
-            <label for="fileField">Selecione um arquivo</label>
-            <input type="file" name="file" id="fileField">
-            <label for="fileNameField">Nome do Arquivo</label>
-            <input type="text" name="file_name" id="fileNameField">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-          <button type="submit" class="btn btn-primary">Enviar</button>
-        </div>
+      <div class="modal-body">
+      <form method="post" enctype="multipart/form-data" action="{% url 'upload' %}">
+          {% csrf_token %}
+          <label for="fileField">Selecione um arquivo</label>
+          <input type="file" name="file" id="fileField">
+          <label for="fileNameField">Nome do Arquivo</label>
+          <input type="text" name="file_name" id="fileNameField">
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+              <button type="submit" class="btn btn-primary">Enviar</button>
+          </div>
+      </form>
+      </div>
     </div>
   </div>
 </div>

@@ -1,17 +1,17 @@
 from django.urls import path
-from .controller import app
+from .views import home
 
 urlpatterns = [
-    path('', app.index, name='index'),
-    path('processar-base/', app.processarBase, name='processar_base'),
-    path('rodar-modelos/', app.rodarModelos, name='rodar-modelos'),
-    path('maquina-comites/', app.maquinaComites, name='maquina-comites'),
-    path('previsao/', app.previsao, name='previsao'),
-    path('score/', app.score, name='score'),
-    path('base-utilizacao/', app.processarBaseUtilizacao, name='base-utilizacao'),
-    path('rodar-tudo/', app.rodarTudo, name='rodar-tudo'),
-    path('upload/', app.upload_file, name='upload'),
-    path('rename_file/<str:file_name>/', app.rename_file, name='rename_file'),
-    path('delete_file/<str:file_name>/', app.excluir_arquivo, name='delete_file'),
+    path('', home.index, name='index'),
+    path('processar-base/', home.processarBase, name='processar_base'),
+    path('rodar-modelos/', home.rodarModelos, name='rodar-modelos'),
+    path('maquina-comites/', home.maquinaComites, name='maquina-comites'),
+    path('previsao/', home.previsao, name='previsao'),
+    path('score/', home.score, name='score'),
+    path('base-utilizacao/', home.processarBaseUtilizacao, name='base-utilizacao'),
+    path('rodar-tudo/', home.rodarTudo, name='rodar-tudo'),
+    path('upload/', home.upload_file, name='upload'),
+    path('rename_file/<str:file_name>/', home.rename_file, name='rename_file'),
+    path('delete_file/<str:file_name>/', home.excluir_arquivo, name='delete_file'),
 
 ]
